@@ -8,19 +8,14 @@ import androidx.fragment.app.FragmentManager;
 import android.annotation.SuppressLint;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.widget.LinearLayout;
 
-public class MainActivity extends AppCompatActivity implements OnClickListener {
+public class MainActivity extends AppCompatActivity{
 
-    Button btnStart;
-    Button btnScore;
     private MediaPlayer sound;
+    LinearLayout container;
     Score score;
-    ConstraintLayout mainl;
-
-    Fragment Fragment1 = FirstFragment.newInstance(score);
+    static int containerid;
 
     @Override
     protected void onResume() {
@@ -32,25 +27,21 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        mainl = findViewById(R.id.main_menu);
-
-        btnStart = findViewById(R.id.btnStart);
-        btnScore = findViewById(R.id.btnScore);
+        setContentView(R.layout.empty);
         sound = MediaPlayer.create(this, R.raw.maintheme);
         soundPlay(sound);
-    }
 
-    @SuppressLint("ResourceType")
-    @Override
-    public void onClick(View v) {
-        btnStart.setOnClickListener(this);
-        btnStart.setText("It's worked");
-        getSupportFragmentManager().beginTransaction()
-                .add(mainl.getId(), Fragment1)
-                .commit();
-    }
+        Fragment main = MainMenu.newInstance(score);
+        container = findViewById(R.id.empty);
+        containerid = container.getId();
 
+        FragmentManager fm = getSupportFragmentManager();
+        if (savedInstanceState == null) {
+            fm.beginTransaction()
+                    .add(containerid, main)
+                    .commit();
+        }
+    }
 
     public void soundPlay(MediaPlayer sound){
         sound.start();
