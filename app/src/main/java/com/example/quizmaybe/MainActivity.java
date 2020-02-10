@@ -10,6 +10,8 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity{
 
     private MediaPlayer sound;
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.empty);
+
         sound = MediaPlayer.create(this, R.raw.maintheme);
         soundPlay(sound);
 

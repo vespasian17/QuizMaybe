@@ -9,14 +9,17 @@ import android.widget.Button;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
+import java.util.ArrayList;
+
 public class MainMenu extends Fragment{
 
     Button btnStart;
     Button btnScore;
     ConstraintLayout mainl;
     Score score;
+    ArrayList<FirstFragment> fragments = new ArrayList<>();
+    FirstFragment Fragment1;
 
-    Fragment Fragment1 = FirstFragment.newInstance(score);
 
     public static MainMenu newInstance(Score score) {
         MainMenu Fragment = new MainMenu();
@@ -29,6 +32,10 @@ public class MainMenu extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         score = (Score) getArguments().getSerializable("score");
+
+        fragments.add(new FirstFragment("one", "two", "three", "four").newInstance(score));
+        fragments.add(new FirstFragment("ашму", "ышч", "ыумут", "ушпре").newInstance(score));
+        Fragment1 = fragments.get(1);
 
     }
 

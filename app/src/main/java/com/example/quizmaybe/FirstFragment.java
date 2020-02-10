@@ -1,6 +1,5 @@
 package com.example.quizmaybe;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,13 +11,27 @@ import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class FirstFragment extends Fragment {
+public class FirstFragment extends Fragment implements View.OnClickListener {
 
     Score score;
-    public Button btn1, btn2, btn3, btn4;
-    int rnd1, rnd2, rnd3, rnd4;
+    Button btn1, btn2, btn3, btn4;
+    private int rnd1, rnd2, rnd3;
     ArrayList<String> mRndText = new ArrayList<>();
+    String one, two, three, four;
     Random random = new Random();
+
+    final Fragment Fragment2 = SecondFragment.newInstance(score);
+
+    public FirstFragment(String one, String two, String three, String four){
+        this.one = one;
+        this.two = two;
+        this.three = three;
+        this.four = four;
+    }
+
+    public FirstFragment(){
+
+    }
 
     public static FirstFragment newInstance(Score score) {
         FirstFragment Fragment = new FirstFragment();
@@ -31,10 +44,10 @@ public class FirstFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         score = (Score) getArguments().getSerializable("score");
-        mRndText.add("Найс");
-        mRndText.add("Моды");
-        mRndText.add("Мусор");
-        mRndText.add("Жирный");
+        mRndText.add(one);
+        mRndText.add(two);
+        mRndText.add(three);
+        mRndText.add(four);
     }
 
     @Override
@@ -60,26 +73,33 @@ public class FirstFragment extends Fragment {
 
         btn4.setText(mRndText.get(0));
 
-        final Fragment Fragment2 = SecondFragment.newInstance(score);
+        btn1.setOnClickListener(this);
+        btn2.setOnClickListener(this);
+        btn3.setOnClickListener(this);
+        btn4.setOnClickListener(this);
 
-        btn1.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("ResourceType")
-            @Override
-            public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.layout.first_fragment, Fragment2)
-                        .addToBackStack(null)
-                        .commit();
-                switch (v.getId()) {
-                    case R.id.btn1: if (btn1.getText().equals("Жирный"))
-                        score.addPoint();
-                        break;
-                    case R.id.btn2:  break;
-                    case R.id.btn3:  break;
-                    case R.id.btn4:  break;
-                }
-            }
-        });
         return view;
+    }
+
+    @Override
+    public void onClick(View v) {
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(MainActivity.containerid, Fragment2)
+                .addToBackStack(null)
+                .commit();
+        switch (v.getId()) {
+            case R.id.btn1: if (btn1.getText().equals(one))
+                score.addPoint();
+                break;
+            case R.id.btn2:  if (btn2.getText().equals(one))
+                score.addPoint();
+                break;
+            case R.id.btn3:  if (btn3.getText().equals(one))
+                score.addPoint();
+                break;
+            case R.id.btn4: if (btn4.getText().equals(one))
+                score.addPoint();
+                break;
+        }
     }
 }
