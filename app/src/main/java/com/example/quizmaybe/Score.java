@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 public class Score implements Serializable {
 
-    public static byte Score = 0;
+    public byte score = 0;
 
     public byte addPoint(){
-        return Score++;
+        return score++;
     }
 }
