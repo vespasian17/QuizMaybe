@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onResume() {
         super.onResume();
-        sound.start();
+        sound.
     }
 
     @SuppressLint("ResourceType")
