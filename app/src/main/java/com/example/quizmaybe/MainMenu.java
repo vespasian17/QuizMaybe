@@ -10,15 +10,19 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MainMenu extends Fragment{
 
     Button btnStart;
     Button btnScore;
     ConstraintLayout mainl;
+    private int rand1, rand2, rand3, rand4, rand5, rand6, rand7, rand8;
     Score score;
     ArrayList<FirstFragment> fragments = new ArrayList<>();
-    FirstFragment Fragment1;
+    ArrayList<FirstFragment> objects = new ArrayList<>();
+    FirstFragment Fragment1, Fragment2;
+    Random random = new Random();
 
 
     public static MainMenu newInstance(Score score) {
@@ -35,8 +39,18 @@ public class MainMenu extends Fragment{
 
         fragments.add(new FirstFragment("one", "two", "three", "four").newInstance(score));
         fragments.add(new FirstFragment("ашму", "ышч", "ыумут", "ушпре").newInstance(score));
-        Fragment1 = fragments.get(1);
+        fragments.add(new FirstFragment("ашму", "ышч", "ыумут", "ушпре").newInstance(score));
+        fragments.add(new FirstFragment("ашму", "ышч", "ыумут", "ушпре").newInstance(score));
+        rand1 = random.nextInt(4);
+        Fragment1 = fragments.get(rand1);
+        fragments.remove(rand1);
 
+        rand2 = random.nextInt(3);
+        Fragment2 = fragments.get(rand2);
+        fragments.remove(rand2);
+
+        objects.add(Fragment1);
+        objects.add(Fragment2);
     }
 
     @Override
@@ -51,7 +65,7 @@ public class MainMenu extends Fragment{
             @Override
             public void onClick(View v) {
                 getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(MainActivity.containerid, Fragment1)
+                        .replace(MainActivity.containerid, objects.get(random.nextInt(1)))
                         .commit();
             }
         });
